@@ -1,22 +1,10 @@
 import { db } from "@/db";
 import { transaction, TransactionType } from "@/db/schema";
-import { and, eq, gte, lt } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 export async function getTodayUnpaid() {
-  // Set the start date to today at 00:00:00
-  const start = new Date();
-  start.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0
-
-  // Set the end date to the next day at 00:00:00
-  const end = new Date(start);
-  end.setDate(start.getDate() + 1);
-
   const transactions = await db.query.transaction.findMany({
-    where: and(
-      eq(transaction.isPaid, false),
-      gte(transaction.date, start),
-      lt(transaction.date, end),
-    ),
+    where: and(eq(transaction.isPaid, false)),
   });
 
   const notPaid = calculateNotPaid(transactions);
