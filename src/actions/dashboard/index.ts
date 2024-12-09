@@ -29,6 +29,7 @@ export async function getTransactionListByDate(year: number) {
       }
     } else if (trx.type === "out") {
       if (trx.isPaid) {
+        monthlyTransactions[monthIndex].income -= trx.amount;
         monthlyTransactions[monthIndex].outcome += trx.amount;
       } else {
         monthlyTransactions[monthIndex].unPaid.outcome += trx.amount;
