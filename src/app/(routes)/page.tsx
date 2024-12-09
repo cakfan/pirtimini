@@ -30,14 +30,16 @@ export default async function Home() {
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         <ModeToggle />
-        <Link
-          href={"/admin"}
-          className={cn(buttonVariants({ variant: "default" }))}
-        >
-          Dashboard
-        </Link>
         {me ? (
-          <SignOutButton />
+          <>
+            <Link
+              href={"/admin"}
+              className={cn(buttonVariants({ variant: "default" }))}
+            >
+              Dashboard
+            </Link>
+            <SignOutButton />
+          </>
         ) : (
           <Link
             href={"/signin"}
